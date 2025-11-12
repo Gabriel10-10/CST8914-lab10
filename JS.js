@@ -62,7 +62,13 @@ class MenuButtonActions {
   setFocusToMenuitem(newMenuitem) {
     this.menuitemNodes.forEach(function (item) {
 // TOUFIC'S COMMENT: Placeholder for the roving tabindex logic  ;)
+      item.tabIndex = -1;    
+      item.setAttribute('aria-selected', 'false'); 
+
     });
+    newMenuitem.tabIndex = 0; 
+    newMenuitem.setAttribute('aria-selected', 'true'); 
+    newMenuitem.focus(); 
   }
 
   setFocusToFirstMenuitem() {
@@ -151,7 +157,7 @@ class MenuButtonActions {
 
   closePopup() {
     if (this.isOpen()) {
-      this.buttonNode.removeAttribute('aria-expanded');
+      this.buttonNode.setAttribute('aria-expanded', false);
       this.menuNode.style.display = 'none';
     }
   }
@@ -318,7 +324,7 @@ class MenuButtonActions {
 
   onMenuitemMouseover(event) {
     var tgt = event.currentTarget;
-    tgt.focus();
+    this.setFocusToMenuitem(tgt);
   }
 
   onBackgroundMousedown(event) {
